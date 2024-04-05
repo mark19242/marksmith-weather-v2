@@ -1,9 +1,10 @@
 
-
+const weatherKey = process.env.OPENWEATHER_KEY
+const mapKey = process.env.MAPBOX_KEY
 
 const getCoordinates = async (searchText) => {
     searchText = encodeURIComponent(searchText);
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${MAPBOX_KEY}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${mapKey}`;
     const options = {
         method: "GET",
         headers: {
@@ -18,7 +19,7 @@ const getCoordinates = async (searchText) => {
 
 
 const getWeather = async (lat, lon) => {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${OPENWEATHER_KEY}&units=imperial`;
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${weatherKey}&units=imperial`;
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
@@ -27,7 +28,7 @@ const getWeather = async (lat, lon) => {
 
 
 const getForecast = async (lat, lon) => {
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_KEY}&units=imperial`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=imperial`;
     const forecastResponse = await fetch(forecastUrl);
     const forecastData = await forecastResponse.json();
     console.log("5-Day Forecast Data:", forecastData);
